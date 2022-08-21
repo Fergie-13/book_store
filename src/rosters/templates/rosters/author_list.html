@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Author list</title>
-</head>
-<body>
-    <h1>Author list</h1>
-    Date: {{ today }}<br>
-    <ul>
-        {% for author in object_list %}
-        <li><a href="/author/{{ author.pk }}">{{ author.name }}</a><a href="/author-edit/{{ author.pk }}">(EDIT)</a></li>  
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block Title %} Author list {% endblock Title %}
+
+{% block Header %} Author list {% endblock Header %}
+
+
+{% block body %}
+Date: {% now "jS F Y H:i" %}
+<table border="1">
+    <tr><td>Name</td><td>Action</td></tr>
+    {% for author in object_list %}
+        <tr><td>{{ author.name }}</td><td><a href="{% url 'aut-det' author.pk %}">view</a></td></tr>
+    {% endfor %}
+</table>
+{% endblock body %}
+ 

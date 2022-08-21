@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add a genre</title>
-</head>
-<body>
-    <h1>{{object.name}}</h1>
-    <b>Description:</b> {{ object.description  }}<br>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block Title %} {{object.name}} {% endblock Title %}
+
+{% block Header %}{% endblock Header %}
+
+
+{% block body %}
+<h1>{{object.name}}</h1>
+<b>Description:</b> {{ object.description  }}<br>
+{% endblock body %}

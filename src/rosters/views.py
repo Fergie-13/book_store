@@ -5,6 +5,7 @@ from django.views import generic
 from . import models
 from . import forms
 from datetime import datetime
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -15,13 +16,16 @@ class GenreList(generic.ListView):
     template_name = 'rosters/genre_list.html'
     model=models.Genre
     # context-> object_list + modelname
-    def get_queryset(self):
-        return super().get_queryset()
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['today'] = datetime.now().date
         return context
+
+    def get_queryset(self):
+        qs = self.model.objects.all()
+        return qs
+
 
 
 class GenreDetailView(generic.DetailView):
@@ -33,10 +37,11 @@ class GenreDetailView(generic.DetailView):
 class GenreAddView(generic.CreateView):
     template_name = 'rosters/genre_add.html'
     model=models.Genre   
-    form_class = forms.AddGenreForm   # context-> form
+    fields = ['name', 'description']   # context-> form
     
     def get_success_url(self):
-        return f"/genre/{self.object.pk}/"
+        return reverse_lazy("gen-det", kwargs={'pk' : self.object.pk})
+        #return f"/genre/{self.object.pk}/"
 
 
 class GenreDeleteView(generic.DeleteView):
@@ -47,6 +52,14 @@ class GenreDeleteView(generic.DeleteView):
 def city_delete_view(request, pk):
     models.Genre.objects.get(pk=pk).delete()
     return HttpResponse("Object was deleted!")
+
+
+class GenreUpdateView(generic.UpdateView):
+    template_name = 'rosters/genre_add.html'
+    model=models.Genre  
+    fields = ['name', 'description'] 
+    success_url = '/genre_list/'
+
 
 
 
@@ -74,10 +87,10 @@ class AuthorDetailView(generic.DetailView):
 class AuthorAddView(generic.CreateView):
     template_name = 'rosters/author_add.html'
     model=models.Author   
-    form_class = forms.AddAuthorForm   # context-> form
+    fields = ['name', 'description']   # context-> form
     
     def get_success_url(self):
-        return f"/genre/{self.object.pk}/"
+        return reverse_lazy("aut-det", kwargs={'pk' : self.object.pk})
 
 
 class AuthorDeleteView(generic.DeleteView):
@@ -88,6 +101,13 @@ class AuthorDeleteView(generic.DeleteView):
 def city_delete_view(request, pk):
     models.Author.objects.get(pk=pk).delete()
     return HttpResponse("Object was deleted!")
+
+
+class AuthorUpdateView(generic.UpdateView):
+    template_name = 'rosters/author_add.html'
+    model=models.Author  
+    fields = ['name', 'description'] 
+    success_url = '/author_list/'
 
 
 
@@ -115,10 +135,10 @@ class SeriesDetailView(generic.DetailView):
 class SeriesAddView(generic.CreateView):
     template_name = 'rosters/series_add.html'
     model=models.Series   
-    form_class = forms.AddSeriesForm   # context-> form
+    fields = ['name', 'description']   # context-> form
     
     def get_success_url(self):
-        return f"/series/{self.object.pk}/"
+        return reverse_lazy("ser-det", kwargs={'pk' : self.object.pk})
 
 
 class SeriesDeleteView(generic.DeleteView):
@@ -129,6 +149,13 @@ class SeriesDeleteView(generic.DeleteView):
 def city_delete_view(request, pk):
     models.Series.objects.get(pk=pk).delete()
     return HttpResponse("Object was deleted!")
+
+
+class SeriesUpdateView(generic.UpdateView):
+    template_name = 'rosters/series_add.html'
+    model=models.Series  
+    fields = ['name', 'description'] 
+    success_url = '/series_list/'
 
 
 
@@ -155,10 +182,10 @@ class Publ_houseDetailView(generic.DetailView):
 class Publ_houseAddView(generic.CreateView):
     template_name = 'rosters/publ_add.html'
     model=models.Publ_house   
-    form_class = forms.AddPubl_houseForm   # context-> form
+    fields = ['name']   # context-> form
     
     def get_success_url(self):
-        return f"/publ/{self.object.pk}/"
+        return reverse_lazy("pub-det", kwargs={'pk' : self.object.pk})
 
 
 class Publ_houseDeleteView(generic.DeleteView):
@@ -169,3 +196,10 @@ class Publ_houseDeleteView(generic.DeleteView):
 def city_delete_view(request, pk):
     models.Publ_house.objects.get(pk=pk).delete()
     return HttpResponse("Object was deleted!")
+
+
+class Publ_houseUpdateView(generic.UpdateView):
+    template_name = 'rosters/publ_add.html'
+    model=models.Publ_house  
+    fields = ['name'] 
+    success_url = '/publ_list/'

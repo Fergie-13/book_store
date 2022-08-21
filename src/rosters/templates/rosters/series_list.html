@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Series list</title>
-</head>
-<body>
-    <h1>Series list</h1>
-    Date: {{ today }}<br>
-    <ul>
-        {% for series in object_list %}
-        <li><a href="/series/{{ series.pk }}">{{ series.name }}</a><a href="/series-edit/{{ series.pk }}">(EDIT)</a></li>  
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block Title %} Series list {% endblock Title %}
+
+{% block Header %} Series list {% endblock Header %}
+
+
+{% block body %}
+Date: {% now "jS F Y H:i" %}
+<table border="1">
+    <tr><td>Name</td><td>Action</td></tr>
+    {% for series in object_list %}
+        <tr><td>{{ series.name }}</td><td><a href="{% url 'ser-det' series.pk %}">view</a></td></tr>
+    {% endfor %}
+</table>
+{% endblock body %}
+ 
