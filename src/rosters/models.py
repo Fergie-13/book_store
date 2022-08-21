@@ -39,6 +39,11 @@ class Series(models.Model):
         verbose_name = "Series name",
         max_length = 30,
     )
+    description = models.TextField(
+        verbose_name = "Series description",
+        blank = True,
+        null = True
+    )
 
     def __str__(self) -> str:
         return self.name
