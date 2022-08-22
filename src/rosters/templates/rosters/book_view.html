@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block Title %} {{object.name}} {% endblock Title %}
+
+{% block Header %}{% endblock Header %}
+
+
+{% block body %}
+<h1>{{object.name}}</h1>
+<b>Author:</b> {{ object.author  }}<br>
+<b>Publishing house:</b> {{ object.publishing.name  }}<br>
+<b>Series:</b> {{ object.series  }}<br>
+<b>Genre:</b> {{ object.genre  }}<br>
+<b>Description:</b> {{ object.description  }}<br>
+<br>
+<a href="/book_list/">All books</a>
+{% endblock body %}

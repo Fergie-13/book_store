@@ -10,7 +10,63 @@ from django.urls import reverse_lazy
 
 # Create your views here.
 
-       
+
+
+class BookList(generic.ListView):
+    template_name = 'rosters/book_list.html'
+    model=models.Book
+    # context-> object_list + modelname
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['today'] = datetime.now().date
+        return context
+
+    def get_queryset(self):
+        qs = self.model.objects.all()
+        return qs
+
+
+
+class BookDetailView(generic.DetailView):
+    template_name = 'rosters/book_view.html'
+    model=models.Book
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['today'] = datetime.now().date
+        q = models.Book.objects.get(pk = self.object.pk)     
+        return context
+
+
+
+class BookAddView(generic.CreateView):
+    template_name = 'rosters/book_add.html'
+    model=models.Book  
+    fields = ['name', 'description', 'genre', 'publishing','author', 'series']   # context-> form
+    
+    def get_success_url(self):
+        return reverse_lazy("book-det", kwargs={'pk' : self.object.pk})
+        #return f"/genre/{self.object.pk}/"
+
+
+class BookDeleteView(generic.DeleteView):
+    template_name = 'rosters/book_delete.html'
+    model=models.Book  
+    success_url = '/book_list/'
+
+def city_delete_view(request, pk):
+    models.Book.objects.get(pk=pk).delete()
+    return HttpResponse("Object was deleted!")
+
+
+class BookUpdateView(generic.UpdateView):
+    template_name = 'rosters/book_add.html'
+    model=models.Book  
+    fields = ['name', 'description', 'genre', 'publishing','author', 'series']
+    success_url = '/book_list/'
+
+
 
 class GenreList(generic.ListView):
     template_name = 'rosters/genre_list.html'

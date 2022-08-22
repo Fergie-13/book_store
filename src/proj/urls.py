@@ -40,4 +40,9 @@ urlpatterns = [
     path('publ_delete/<int:pk>/', views.Publ_houseDeleteView.as_view(), name="pub-del"),
     path('publ_add/', views.Publ_houseAddView.as_view(), name="pub-add"),
     path('publ-edit/<int:pk>/', views.Publ_houseUpdateView.as_view(), name="pub-ed"),
+    path('book_list/', views.BookList.as_view(), name="book-li"),
+    path('book/<int:pk>/', views.BookDetailView.as_view(), name="book-det"),
+    path('book_delete/<int:pk>/', views.BookDeleteView.as_view(), name="book-del"),
+    path('book_add/', views.BookAddView.as_view(), name="book-add"),
+    path('book-edit/<int:pk>/', views.BookUpdateView.as_view(), name="book-ed"),
 ]

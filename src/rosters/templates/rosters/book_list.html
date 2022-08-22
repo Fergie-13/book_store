@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block Title %} Book list {% endblock Title %}
+
+{% block Header %} Book list {% endblock Header %}
+
+
+{% block body %}
+Date: {% now "jS F Y H:i" %}
+<table border="1">
+    <tr><td>Name</td><td>Action</td></tr>
+    {% for book in object_list %}
+        <tr><td>{{ book.name }}</td><td><a href="{% url 'book-det' book.pk %}">view</a></td></tr>
+    {% endfor %}
+</table>
+{% endblock body %}
