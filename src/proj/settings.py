@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-1)93@!(!rs+j=uce^_$##8@u&y30!!*r39sk^&t3goz!t3d4g1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['fergie13.pythonanywhere.com']
+ALLOWED_HOSTS = ['fergie13.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rosters',
+]
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
 ]
 
 MIDDLEWARE = [

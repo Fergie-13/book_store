@@ -2,16 +2,26 @@
 
 {% block Title %} Series list {% endblock Title %}
 
-{% block Header %} Series list {% endblock Header %}
+{% block Header %} Series list 
+<a class="btn btn-primary" href="{% url 'ser-add' %}" role="button">Add</a>
+{% endblock Header %}
 
 
 {% block body %}
-Date: {% now "jS F Y H:i" %}
-<table border="1">
-    <tr><td>Name</td><td>Action</td></tr>
-    {% for series in object_list %}
-        <tr><td>{{ series.name }}</td><td><a href="{% url 'ser-det' series.pk %}">view</a></td></tr>
-    {% endfor %}
-</table>
+    Date: {% now "jS F Y H:i" %}
+    <table class="table table-striped table-bordered border-primary">
+        <thead>
+            <tr>
+                <th scope="col">name</th>
+                <th scope="col">actions</th>        
+            </tr>
+        </thead>
+        <tbody>
+            {% for series in object_list %}
+                <tr>
+                    <td>{{ series.name }}</td>
+                    <td><a href="{% url 'ser-det' series.pk %}"><i class="bi bi-eye-fill"></i></a><a href="{% url 'ser-ed' series.pk %}"><i class="bi bi-pencil-square"></i></i></a></td>
+                </tr>
+            {% endfor %}
+    </table>
 {% endblock body %}
- 

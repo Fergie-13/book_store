@@ -13,8 +13,9 @@ class Book(models.Model):
         blank = True,
         null = True
     )
-    genre = models.ManyToManyField(
+    genre = models.ForeignKey(
         'rosters.Genre',
+        on_delete=models.PROTECT,
         verbose_name="Genre",
         related_name="genres"
     )
