@@ -35,7 +35,7 @@ class BookDetailView(generic.DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['today'] = datetime.now().date
-        q = models.Book.objects.get(pk = self.object.pk)     
+        q = models.Book.objects.get(pk = self.object.pk)    
         return context
 
 
